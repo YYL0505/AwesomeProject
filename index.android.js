@@ -14,8 +14,6 @@ import {
     ListView
 } from 'react-native';
 
-var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
-
 class AwesomeProject extends Component {
     constructor(props) {
         super(props);
@@ -46,11 +44,17 @@ class AwesomeProject extends Component {
     }
 
     fetchData() {
-        fetch(REQUEST_URL)
-            .then((response) => response.json())
+        fetch('https://api.dribbble.com/v1/shots', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
+            }
+        }).then((response) => response.json())
             .then((responseData) => {
                 this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
+                    dataSource: this.state.dataSource.cloneWithRows(responseData),
                     loaded: true,
                 });
             })
@@ -67,11 +71,11 @@ class AwesomeProject extends Component {
         );
     }
 
-    renderMovie(movie) {
+    renderMovie(shot) {
         return (
             <View style={styles.container}>
                 <Image
-                    source={{uri: movie.posters.thumbnail}}
+                    source={{uri: shot.images.normal}}
                     style={styles.thumbnail}
                 />
 
@@ -81,7 +85,7 @@ class AwesomeProject extends Component {
                         style={styles.shotActionBarImage}
                     />
                     <Text style={styles.shotActionBarViewCount}>
-                        10
+                        {shot.views_count}
                     </Text>
 
                     <Image
@@ -89,7 +93,7 @@ class AwesomeProject extends Component {
                         style={styles.shotActionBarImage}
                     />
                     <Text style={styles.shotActionBarLikeCount}>
-                        8
+                        {shot.likes_count}
                     </Text>
 
                     <Image
@@ -97,7 +101,7 @@ class AwesomeProject extends Component {
                         style={styles.shotActionBarImage}
                     />
                     <Text style={styles.shotActionBarCommentCount}>
-                        5
+                        {shot.comments_count}
                     </Text>
                 </View>
             </View>
