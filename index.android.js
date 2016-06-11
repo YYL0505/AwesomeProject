@@ -76,22 +76,29 @@ class AwesomeProject extends Component {
                 />
 
                 <View style={styles.shotActionBar}>
-                    <Text style={styles.shotActionBarViewCountImage}>
-                        view
-                    </Text>
+                    <Image
+                        source={require('./asserts/ic_visibility.png')}
+                        style={styles.shotActionBarImage}
+                    />
                     <Text style={styles.shotActionBarViewCount}>
                         10
                     </Text>
 
-                    <Text style={styles.shotActionBarLikeCountImage}>
-                        like
-                    </Text>
+                    <Image
+                        source={require('./asserts/ic_favorite.png')}
+                        style={styles.shotActionBarImage}
+                    />
                     <Text style={styles.shotActionBarLikeCount}>
                         8
                     </Text>
 
-                    <Text style={styles.shotActionBarCommentCountImage}>comment</Text>
-                    <Text style={styles.shotActionBarCommentCount}>5</Text>
+                    <Image
+                        source={require('./asserts/ic_message.png')}
+                        style={styles.shotActionBarImage}
+                    />
+                    <Text style={styles.shotActionBarCommentCount}>
+                        5
+                    </Text>
                 </View>
             </View>
         );
@@ -104,15 +111,16 @@ var styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 10,
+        padding: 5,
         width: 150,
         height: 120,
         marginTop: 10,
         marginRight: 10,
     },
     thumbnail: {
-        width: 120,
-        height: 90,
+        resizeMode: 'cover',
+        width: 140,
+        height: 95,
     },
     shotActionBar: {
         flexWrap:'wrap',
@@ -121,9 +129,11 @@ var styles = StyleSheet.create({
         width: 120,
         marginTop: 10,
     },
-    shotActionBarViewCountImage: {
-        fontSize: 8,
-        textAlign: 'center',
+    shotActionBarImage: {
+        width: 12,
+        height: 12,
+        justifyContent: 'center',
+        resizeMode: 'contain',
         marginRight:2,
     },
     shotActionBarViewCount: {
@@ -131,22 +141,11 @@ var styles = StyleSheet.create({
         textAlign: 'center',
         marginRight:5,
     },
-    shotActionBarLikeCountImage: {
-        fontSize: 8,
-        textAlign: 'center',
-        marginRight:2,
-    },
     shotActionBarLikeCount: {
         fontSize: 8,
         textAlign: 'center',
         marginRight:5,
     },
-    shotActionBarCommentCountImage: {
-        fontSize: 8,
-        textAlign: 'center',
-        marginRight:2,
-    },
-
     shotActionBarCommentCount: {
         fontSize: 8,
         textAlign: 'center',
