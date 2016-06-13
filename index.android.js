@@ -62,7 +62,7 @@ class AwesomeProject extends Component {
                 );
             case 'shotDetail':
                 return (
-                    <ShotDetail navigator={navigator} title="ShotDetail" />
+                    <ShotDetail navigator={navigator} title="ShotDetail"  route={route} />
                 );
         }
     }

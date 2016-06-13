@@ -37,7 +37,7 @@ class ShotsView extends Component {
     _renderRowView(rowData) {
         return (
             <View style={styles.container}>
-                <TouchableHighlight onPress={() => this.props.navigator.push({id: 'shotDetail'})}>
+                <TouchableHighlight onPress={() => this.props.navigator.push({id: 'shotDetail', shotId: rowData.id})}>
                     <Image
                         source={{uri: rowData.images.normal}}
                         style={styles.thumbnail}

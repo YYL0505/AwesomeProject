@@ -10,14 +10,10 @@ import {
 } from 'react-native';
 
 class ShotDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
-    
     render() {
         return (
             <TouchableHighlight onPress={() => this.onTestPressed()} underlayColor="red" style={styles.test}>
-                <Text style={styles.text}>Test</Text>
+                <Text style={styles.text}>{this.props.route.shotId}</Text>
             </TouchableHighlight>
         );
     }
