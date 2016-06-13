@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, {Component} from 'react';
 import {
     AppRegistry,
@@ -11,71 +5,35 @@ import {
     StyleSheet,
     Text,
     View,
-    ListView
+    ListView,
+    TouchableHighlight
 } from 'react-native';
 
+var GiftedListView = require('react-native-gifted-listview');
+var GiftedSpinner = require('react-native-gifted-spinner');
+
 class AwesomeProject extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2,
-            }),
-            loaded: false,
-        };
-    }
-
-    componentDidMount() {
-        this.fetchData();
-    }
-
-    render() {
-        if (!this.state.loaded) {
-            return this.renderLoadingView();
-        }
-
-        return (
-            <ListView
-                dataSource={this.state.dataSource}
-                renderRow={this.renderMovie}
-                contentContainerStyle={styles.listView}
-            />
-        );
-    }
-
-    fetchData() {
-        fetch('https://api.dribbble.com/v1/shots', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
-            }
-        }).then((response) => response.json())
-            .then((responseData) => {
-                this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(responseData),
-                    loaded: true,
+    _onFetch(page = 1, callback, options) {
+        setTimeout(() => {
+            fetch('https://api.dribbble.com/v1/shots?page=' + page + '&per_page=20', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
+                }
+            }).then((response) => response.json())
+                .then((responseData) => {
+                    callback(responseData);
                 });
-            })
-            .done();
+        }, 1000);
     }
 
-    renderLoadingView() {
-        return (
-            <View style={styles.container}>
-                <Text>
-                    Loading movies...
-                </Text>
-            </View>
-        );
-    }
-
-    renderMovie(shot) {
+    _renderRowView(rowData) {
         return (
             <View style={styles.container}>
                 <Image
-                    source={{uri: shot.images.normal}}
+                    source={{uri: rowData.images.normal}}
                     style={styles.thumbnail}
                 />
 
@@ -85,7 +43,7 @@ class AwesomeProject extends Component {
                         style={styles.shotActionBarImage}
                     />
                     <Text style={styles.shotActionBarViewCount}>
-                        {shot.views_count}
+                        {rowData.views_count}
                     </Text>
 
                     <Image
@@ -93,7 +51,7 @@ class AwesomeProject extends Component {
                         style={styles.shotActionBarImage}
                     />
                     <Text style={styles.shotActionBarLikeCount}>
-                        {shot.likes_count}
+                        {rowData.likes_count}
                     </Text>
 
                     <Image
@@ -101,17 +59,59 @@ class AwesomeProject extends Component {
                         style={styles.shotActionBarImage}
                     />
                     <Text style={styles.shotActionBarCommentCount}>
-                        {shot.comments_count}
+                        {rowData.comments_count}
                     </Text>
                 </View>
             </View>
         );
     }
+
+    _renderPaginationWaitingView(paginateCallback) {
+        return (
+            <TouchableHighlight
+                onPress={paginateCallback}
+                style={styles.paginationView}
+            >
+                <Text style={styles.loadMoreActionsLabel}>
+                    Load more
+                </Text>
+            </TouchableHighlight>
+        );
+    }
+
+    _renderPaginationFetchingView() {
+        return (
+            <View style={styles.paginationView}>
+                <GiftedSpinner style={styles.loadingActionsLabel}/>
+            </View>
+        );
+    }
+
+    render() {
+        return (
+            <GiftedListView
+                rowView={this._renderRowView}
+                onFetch={this._onFetch}
+                firstLoader={true} // display a loader for the first fetching
+
+                pagination={true} // enable infinite scrolling using touch to load more
+                paginationWaitingView={this._renderPaginationWaitingView}
+                paginationFetchingView={this._renderPaginationFetchingView}
+
+                refreshable={true} // enable pull-to-refresh for iOS and touch-to-refresh for Android
+                withSections={false} // enable sections
+                enableEmptySection={true}
+                refreshableTintColor="blue"
+                contentContainerStyle={styles.listView}
+            />
+        );
+    }
 }
+
 var styles = StyleSheet.create({
     container: {
-        flexWrap:'wrap',
-        flexDirection:'row',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
         backgroundColor: '#ffffff',
         justifyContent: 'center',
         alignItems: 'center',
@@ -127,8 +127,8 @@ var styles = StyleSheet.create({
         height: 95,
     },
     shotActionBar: {
-        flexWrap:'wrap',
-        flexDirection:'row',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
         justifyContent: 'flex-end',
         width: 120,
         marginTop: 10,
@@ -138,23 +138,22 @@ var styles = StyleSheet.create({
         height: 12,
         justifyContent: 'center',
         resizeMode: 'contain',
-        marginRight:2,
+        marginRight: 2,
     },
     shotActionBarViewCount: {
         fontSize: 8,
         textAlign: 'center',
-        marginRight:5,
+        marginRight: 5,
     },
     shotActionBarLikeCount: {
         fontSize: 8,
         textAlign: 'center',
-        marginRight:5,
+        marginRight: 5,
     },
     shotActionBarCommentCount: {
         fontSize: 8,
         textAlign: 'center',
     },
-
     listView: {
         backgroundColor: '#F4F4F4',
         paddingLeft: 20,
@@ -162,6 +161,19 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         flexWrap: 'wrap',
         flexDirection: 'row',
+    },
+    loadMoreActionsLabel: {
+        fontSize: 12,
+        color: '#007aff',
+    },
+    loadingActionsLabel: {
+        height: 20,
+    },
+    paginationView: {
+        height: 30,
+        paddingTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 
