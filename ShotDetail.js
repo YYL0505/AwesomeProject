@@ -10,11 +10,30 @@ import {
 } from 'react-native';
 
 class ShotDetail extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (row1, row2) => row1 !== row2,
+            }),
+            loaded: false,
+            shot: null,
+        };
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
     render() {
+        if (!this.state.loaded) {
+            return this.renderLoadingView();
+        }
+
         return (
             <View style={styles.container}>
                 <View style={styles.userContainer}>
-                    <Image style={styles.userAvatar} source={require('./asserts/ic_favorite.png')} />
+                    <Image style={styles.userAvatar} source={require('./asserts/ic_favorite.png')}/>
 
                     <View>
                         <Text style={styles.shotTitle}>
@@ -28,11 +47,11 @@ class ShotDetail extends Component {
                 </View>
 
                 <View style={styles.shotContainer}>
-                    <Image style={styles.shotImage} source={require('./asserts/ic_favorite.png')} />
+                    <Image style={styles.shotImage} source={require('./asserts/ic_favorite.png')}/>
                 </View>
 
                 <View style={styles.actionContainer}>
-                    <Image source={require('./asserts/ic_visibility.png')} style={styles.shotActionBarImage} />
+                    <Image source={require('./asserts/ic_visibility.png')} style={styles.shotActionBarImage}/>
                     <Text style={styles.shotActionBarViewCount}>
                         12
                     </Text>
@@ -42,19 +61,70 @@ class ShotDetail extends Component {
                         12
                     </Text>
 
-                    <Image source={require('./asserts/ic_message.png')}  style={styles.shotActionBarImage} />
+                    <Image source={require('./asserts/ic_message.png')} style={styles.shotActionBarImage}/>
                     <Text style={styles.shotActionBarCommentCount}>
                         12
                     </Text>
                 </View>
+
+                <ListView dataSource={this.state.dataSource} renderRow={this.renderCommentItem}/>
             </View>
         );
     }
 
-    onTestPressed() {
-        this.props.navigator.push({
-            id: 'shots',
-        });
+    fetchData() {
+        fetch('https://api.dribbble.com/v1/shots/' + this.props.route.shotId, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
+            }
+        }).then((response) => response.json())
+            .then((responseData) => {
+                this.setState({
+                    shot: responseData,
+                });
+
+                this.fetchingComment();
+            })
+    }
+
+    fetchingComment() {
+        fetch('https://api.dribbble.com/v1/shots/' + this.props.route.shotId + '/comments', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
+            }
+        }).then((response) => response.json())
+            .then((responseData) => {
+                this.setState({
+                    dataSource: this.state.dataSource.cloneWithRows(responseData),
+                    loaded: true,
+                });
+            }).done();
+    }
+
+    renderCommentItem(comment) {
+        return (
+            <View>
+                <Text>
+                    test
+                </Text>
+            </View>
+        );
+    }
+
+    renderLoadingView() {
+        return (
+            <View style={styles.container}>
+                <Text>
+                    Loading movies...
+                </Text>
+            </View>
+        );
     }
 }
 
@@ -77,11 +147,9 @@ var styles = StyleSheet.create({
         resizeMode: 'contain',
     },
 
-    shotTitle: {
-    },
+    shotTitle: {},
 
-    userName: {
-    },
+    userName: {},
 
     shotContainer: {
         flex: 1,
