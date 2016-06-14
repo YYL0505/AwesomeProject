@@ -32,44 +32,12 @@ class ShotDetail extends Component {
         }
 
         return (
-            <View style={styles.container}>
-                <View style={styles.userContainer}>
-                    <Image style={styles.userAvatar} source={{uri: this.state.shot.user.avatar_url}}/>
-
-                    <View>
-                        <Text style={styles.shotTitle}>
-                            {this.state.shot.title}
-                        </Text>
-
-                        <Text style={styles.userName}>
-                            {this.state.shot.user.name}
-                        </Text>
-                    </View>
-                </View>
-
-                <View style={styles.shotContainer}>
-                    <Image style={styles.shotImage} source={{uri: this.state.shot.images.normal}} />
-                </View>
-
-                <View style={styles.actionContainer}>
-                    <Image source={require('./asserts/ic_visibility.png')} style={styles.shotActionBarImage}/>
-                    <Text style={styles.shotActionBarViewCount}>
-                        {this.state.shot.views_count}
-                    </Text>
-
-                    <Image source={require('./asserts/ic_favorite.png')} style={styles.shotActionBarImage}/>
-                    <Text style={styles.shotActionBarLikeCount}>
-                        {this.state.shot.likes_count}
-                    </Text>
-
-                    <Image source={require('./asserts/ic_message.png')} style={styles.shotActionBarImage}/>
-                    <Text style={styles.shotActionBarCommentCount}>
-                        {this.state.shot.comments_count}
-                    </Text>
-                </View>
-
-                <ListView dataSource={this.state.dataSource} renderRow={this.renderCommentItem} renderSeparator={this.renderSeparator}/>
-            </View>
+            <ListView
+                style={styles.container}
+                dataSource={this.state.dataSource}
+                renderRow={this.renderCommentItem}
+                renderSeparator={this.renderSeparator}
+                renderSectionHeader={this.renderHeader.bind(this)}/>
         );
     }
 
@@ -108,6 +76,47 @@ class ShotDetail extends Component {
             }).done();
     }
 
+    renderHeader() {
+        return (
+            <View>
+                <View style={styles.userContainer}>
+                    <Image style={styles.userAvatar} source={{uri: this.state.shot.user.avatar_url}}/>
+
+                    <View>
+                        <Text style={styles.shotTitle}>
+                            {this.state.shot.title}
+                        </Text>
+
+                        <Text style={styles.userName}>
+                            {this.state.shot.user.name}
+                        </Text>
+                    </View>
+                </View>
+
+                <View style={styles.shotContainer}>
+                    <Image style={styles.shotImage} source={{uri: this.state.shot.images.normal}}/>
+                </View>
+
+                <View style={styles.actionContainer}>
+                    <Image source={require('./asserts/ic_visibility.png')} style={styles.shotActionBarImage}/>
+                    <Text style={styles.shotActionBarViewCount}>
+                        {this.state.shot.views_count}
+                    </Text>
+
+                    <Image source={require('./asserts/ic_favorite.png')} style={styles.shotActionBarImage}/>
+                    <Text style={styles.shotActionBarLikeCount}>
+                        {this.state.shot.likes_count}
+                    </Text>
+
+                    <Image source={require('./asserts/ic_message.png')} style={styles.shotActionBarImage}/>
+                    <Text style={styles.shotActionBarCommentCount}>
+                        {this.state.shot.comments_count}
+                    </Text>
+                </View>
+            </View>
+        );
+    }
+
     renderCommentItem(comment) {
         return (
             <View style={styles.commentContainer}>
@@ -128,13 +137,12 @@ class ShotDetail extends Component {
                         <Text style={styles.commentActionIssueTime}>
                             issued time | Like?
                         </Text>
-                        <Image source={require('./asserts/ic_favorite.png')} style={styles.shotActionBarImage} />
+                        <Image source={require('./asserts/ic_favorite.png')} style={styles.shotActionBarImage}/>
                         <Text style={styles.commentActionLikesCount}>
                             1
                         </Text>
                     </View>
                 </View>
-
             </View>
         );
     }
@@ -174,7 +182,7 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         resizeMode: 'contain',
         borderRadius: 20,
-        marginRight:3,
+        marginRight: 3,
     },
 
     shotTitle: {},
@@ -245,7 +253,7 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         resizeMode: 'contain',
         borderRadius: 20,
-        marginRight:3,
+        marginRight: 3,
     },
     commentDescription: {
         height: 30,
@@ -268,6 +276,5 @@ var styles = StyleSheet.create({
     }
 
 });
-
 
 module.exports = ShotDetail;
