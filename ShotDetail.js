@@ -6,7 +6,8 @@ import {
     Text,
     View,
     ListView,
-    TouchableHighlight
+    TouchableHighlight,
+    WebView
 } from 'react-native';
 
 class ShotDetail extends Component {
@@ -67,7 +68,7 @@ class ShotDetail extends Component {
                     </Text>
                 </View>
 
-                <ListView dataSource={this.state.dataSource} renderRow={this.renderCommentItem}/>
+                <ListView dataSource={this.state.dataSource} renderRow={this.renderCommentItem} renderSeparator={this.renderSeparator}/>
             </View>
         );
     }
@@ -109,11 +110,38 @@ class ShotDetail extends Component {
 
     renderCommentItem(comment) {
         return (
-            <View>
-                <Text>
-                    test
-                </Text>
+            <View style={styles.commentContainer}>
+                <Image source={{uri: comment.user.avatar_url}} style={styles.commentUserAvatar}/>
+
+                <View>
+                    <Text>
+                        {comment.user.name}
+                    </Text>
+
+                    <WebView
+                        style={styles.commentDescription}
+                        automaticallyAdjustContentInsets={false}
+                        source={{html: comment.body}}/>
+
+
+                    <View style={styles.commentActionContainer}>
+                        <Text style={styles.commentActionIssueTime}>
+                            issued time | Like?
+                        </Text>
+                        <Image source={require('./asserts/ic_favorite.png')} style={styles.shotActionBarImage} />
+                        <Text style={styles.commentActionLikesCount}>
+                            1
+                        </Text>
+                    </View>
+                </View>
+
             </View>
+        );
+    }
+
+    renderSeparator() {
+        return (
+            <View style={styles.commentSeparator}/>
         );
     }
 
@@ -141,8 +169,8 @@ var styles = StyleSheet.create({
     },
 
     userAvatar: {
-        width: 50,
-        height: 50,
+        width: 30,
+        height: 30,
         justifyContent: 'center',
         resizeMode: 'contain',
         borderRadius: 20,
@@ -198,6 +226,46 @@ var styles = StyleSheet.create({
         fontSize: 12,
         textAlign: 'center',
     },
+
+    commentContainer: {
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        marginBottom: 10,
+        marginTop: 10,
+    },
+
+    commentSeparator: {
+        height: 1,
+        backgroundColor: '#CCCCCC',
+    },
+
+    commentUserAvatar: {
+        width: 20,
+        height: 20,
+        justifyContent: 'center',
+        resizeMode: 'contain',
+        borderRadius: 20,
+        marginRight:3,
+    },
+    commentDescription: {
+        height: 30,
+        backgroundColor: '#00000000',
+    },
+
+    commentActionContainer: {
+        height: 20,
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+
+    commentActionIssueTime: {
+        fontSize: 14,
+    },
+
+    commentActionLikesCount: {
+        fontSize: 12,
+    }
 
 });
 
