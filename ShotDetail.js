@@ -33,37 +33,37 @@ class ShotDetail extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.userContainer}>
-                    <Image style={styles.userAvatar} source={require('./asserts/ic_favorite.png')}/>
+                    <Image style={styles.userAvatar} source={{uri: this.state.shot.user.avatar_url}}/>
 
                     <View>
                         <Text style={styles.shotTitle}>
-                            Title
+                            {this.state.shot.title}
                         </Text>
 
                         <Text style={styles.userName}>
-                            By user
+                            {this.state.shot.user.name}
                         </Text>
                     </View>
                 </View>
 
                 <View style={styles.shotContainer}>
-                    <Image style={styles.shotImage} source={require('./asserts/ic_favorite.png')}/>
+                    <Image style={styles.shotImage} source={{uri: this.state.shot.images.normal}} />
                 </View>
 
                 <View style={styles.actionContainer}>
                     <Image source={require('./asserts/ic_visibility.png')} style={styles.shotActionBarImage}/>
                     <Text style={styles.shotActionBarViewCount}>
-                        12
+                        {this.state.shot.views_count}
                     </Text>
 
                     <Image source={require('./asserts/ic_favorite.png')} style={styles.shotActionBarImage}/>
                     <Text style={styles.shotActionBarLikeCount}>
-                        12
+                        {this.state.shot.likes_count}
                     </Text>
 
                     <Image source={require('./asserts/ic_message.png')} style={styles.shotActionBarImage}/>
                     <Text style={styles.shotActionBarCommentCount}>
-                        12
+                        {this.state.shot.comments_count}
                     </Text>
                 </View>
 
@@ -145,6 +145,8 @@ var styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         resizeMode: 'contain',
+        borderRadius: 20,
+        marginRight:3,
     },
 
     shotTitle: {},
@@ -155,13 +157,13 @@ var styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         marginTop: 10,
+        backgroundColor: '#ffffff',
+        padding: 8,
     },
 
     shotImage: {
-        backgroundColor: '#ffffff',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 5,
         width: 300,
         height: 200,
         flex: 1,
@@ -173,7 +175,6 @@ var styles = StyleSheet.create({
         justifyContent: 'flex-end',
         height: 50,
         marginTop: 10,
-        marginRight: 10,
     },
 
     shotActionBarImage: {
