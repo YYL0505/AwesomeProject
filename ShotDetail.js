@@ -10,7 +10,7 @@ import {
     WebView
 } from 'react-native';
 
-var HTMLView = require('react-native-htmlview')
+var HTMLView = require('react-native-htmlview');
 
 class ShotDetail extends Component {
     constructor(props) {
@@ -79,7 +79,8 @@ class ShotDetail extends Component {
     }
 
     renderHeader() {
-        var userInfo = '<p>By <span class="username">' + this.state.shot.user.name + '</span> on ' + this.state.shot.created_at+ '</p>'
+        var createDate = new Date(this.state.shot.created_at).toString('MMMM dS, yyyy');
+        var userInfo = '<p>By <span class="username">' + this.state.shot.user.name + '</span> on ' + createDate + '</p>'
         return (
             <View>
                 <View style={styles.userContainer}>
