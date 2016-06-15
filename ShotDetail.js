@@ -124,7 +124,7 @@ class ShotDetail extends Component {
             <View style={styles.commentContainer}>
                 <Image source={{uri: comment.user.avatar_url}} style={styles.commentUserAvatar}/>
 
-                <View>
+                <View style={styles.commentRight}>
                     <Text>
                         {comment.user.name}
                     </Text>
@@ -254,6 +254,10 @@ var styles = StyleSheet.create({
         resizeMode: 'contain',
         borderRadius: 20,
         marginRight: 3,
+    },
+
+    commentRight: {
+        flex: 1,
     },
 
     commentActionContainer: {
