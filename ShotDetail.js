@@ -79,19 +79,22 @@ class ShotDetail extends Component {
     }
 
     renderHeader() {
+        var userInfo = '<p>By <span class="username">' + this.state.shot.user.name + '</span> on ' + this.state.shot.created_at+ '</p>'
         return (
             <View>
                 <View style={styles.userContainer}>
                     <Image style={styles.userAvatar} source={{uri: this.state.shot.user.avatar_url}}/>
 
-                    <View>
+                    <View style={styles.userInfo}>
                         <Text style={styles.shotTitle}>
                             {this.state.shot.title}
                         </Text>
 
-                        <Text style={styles.userName}>
-                            {this.state.shot.user.name}
-                        </Text>
+                        <HTMLView
+                            value={userInfo}
+                            stylesheet={userInfoHtmlViewStyle}
+                        />
+
                     </View>
                 </View>
 
@@ -169,6 +172,17 @@ class ShotDetail extends Component {
         );
     }
 }
+var userInfoHtmlViewStyle = StyleSheet.create({
+    p: {
+        color: '#BABABA',
+        fontSize: 10,
+    },
+    span: {
+        color: '#5989BA',
+        fontSize: 10,
+    }
+});
+
 var htmlViewStyle = StyleSheet.create({
     p: {
         color: '#000000',
@@ -186,7 +200,6 @@ var styles = StyleSheet.create({
     userContainer: {
         flexWrap: 'wrap',
         flexDirection: 'row',
-        height: 50,
         alignItems: 'center',
     },
 
@@ -199,9 +212,14 @@ var styles = StyleSheet.create({
         marginRight: 3,
     },
 
-    shotTitle: {},
+    userInfo: {
+        flex: 1,
+    },
 
-    userName: {},
+    shotTitle: {
+        fontWeight: 'bold',
+        color: '#464646',
+    },
 
     shotContainer: {
         flex: 1,
