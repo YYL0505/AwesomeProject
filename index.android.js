@@ -17,60 +17,60 @@ var ShotDetail = require("./ShotDetail");
 class AwesomeProject extends Component {
     render() {
         var NavigationBarRouteMapper = {
-            LeftButton: (route, navigator, index, navState) => {
-                if (index === 0) {
-                    return null
-                }
-                const previousRoute = navState.routeStack[index - 1]
+            LeftButton(route, navigator, index, navState) {
+                return null;
+            },
+            RightButton(route, navigator, index, navState) {
+                return null;
+            },
+            Title(route, navigator, index, navState) {
                 return (
                     <TouchableOpacity
                         onPress={() => navigator.pop()}>
                         <Text style={styles.navText}>
-                            {previousRoute.title}
+                            {route.id}
                         </Text>
                     </TouchableOpacity>
-                )
-            },
-            RightButton: (route, navigator, index, navState) => {
-                if (route.rightElement) {
-                    return route.rightElement
-                }
-            },
-            Title: (route, navigator, index, navState) => {
-                return (
-                    <Text style={styles.navText}>{route.title}</Text>
-                )
+                );
             }
         };
+
         return (
             <Navigator
-                style={styles.navigationContainer}
                 initialRoute={{id: 'shots'}}
                 renderScene={this.renderScene.bind(this)}
                 navigationBar={
-          <Navigator.NavigationBar routeMapper={NavigationBarRouteMapper} />
-        }
+                    <Navigator.NavigationBar
+                        style={styles.navigationContainer}
+                        routeMapper={NavigationBarRouteMapper} />
+                    }
             />
         );
     }
+
     renderScene(route, navigator) {
-        // _navigator = navigator;
         switch (route.id) {
             case 'shots':
                 return (
-                    <ShotsView navigator={navigator} title="Shots" />
+                    <ShotsView navigator={navigator} title="Shots"/>
                 );
             case 'shotDetail':
                 return (
-                    <ShotDetail navigator={navigator} title="ShotDetail"  route={route} />
+                    <ShotDetail navigator={navigator} title="ShotDetail" route={route}/>
                 );
         }
     }
 }
 
 var styles = StyleSheet.create({
-    navigationContainer: {
-        flex: 1
-    }
-});
+        navigationContainer: {
+            backgroundColor: '#246dd5',
+            alignItems: 'center'
+        },
+        navText: {
+            color: 'white',
+            fontSize: 12
+        }
+    })
+    ;
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);

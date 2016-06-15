@@ -78,8 +78,7 @@ class ShotsView extends Component {
         return (
             <TouchableHighlight
                 onPress={paginateCallback}
-                style={styles.paginationView}
-            >
+                style={styles.paginationView}>
                 <Text style={styles.loadMoreActionsLabel}>
                     Load more
                 </Text>
@@ -98,6 +97,7 @@ class ShotsView extends Component {
     render() {
         return (
             <GiftedListView
+                style={styles.list}
                 rowView={this._renderRowView.bind(this)}
                 onFetch={this._onFetch}
                 firstLoader={true} // display a loader for the first fetching
@@ -117,6 +117,9 @@ class ShotsView extends Component {
 }
 
 var styles = StyleSheet.create({
+    list: {
+        marginTop: 50,
+    },
     container: {
         flexWrap: 'wrap',
         flexDirection: 'row',

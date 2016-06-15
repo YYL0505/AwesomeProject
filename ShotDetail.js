@@ -217,7 +217,7 @@ var htmlViewStyle = StyleSheet.create({
 
 var styles = StyleSheet.create({
     container: {
-        marginTop: 20,
+        marginTop: 60,
         marginBottom: 20,
         paddingLeft: 20,
         paddingRight: 20,
