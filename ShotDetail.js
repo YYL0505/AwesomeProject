@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 var HTMLView = require('react-native-htmlview');
+require('./libs/date');
 
 class ShotDetail extends Component {
     constructor(props) {
