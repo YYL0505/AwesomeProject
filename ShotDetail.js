@@ -125,19 +125,20 @@ class ShotDetail extends Component {
                 <Image source={{uri: comment.user.avatar_url}} style={styles.commentUserAvatar}/>
 
                 <View style={styles.commentRight}>
-                    <Text>
+                    <Text style={styles.commentUserName}>
                         {comment.user.name}
                     </Text>
 
                     <HTMLView
                         value={comment.body}
+                        stylesheet={htmlViewStyle}
                     />
 
                     <View style={styles.commentActionContainer}>
                         <Text style={styles.commentActionIssueTime}>
                             issued time | Like?
                         </Text>
-                        <Image source={require('./asserts/ic_favorite.png')} style={styles.shotActionBarImage}/>
+                        <Image source={require('./asserts/ic_favorite.png')} style={styles.commentActionLikeIcon}/>
                         <Text style={styles.commentActionLikesCount}>
                             1
                         </Text>
@@ -163,6 +164,11 @@ class ShotDetail extends Component {
         );
     }
 }
+var htmlViewStyle = StyleSheet.create({
+    p: {
+        color: '#000000',
+    },
+});
 
 var styles = StyleSheet.create({
     container: {
@@ -260,19 +266,31 @@ var styles = StyleSheet.create({
         flex: 1,
     },
 
+    commentUserName: {
+        fontWeight: 'bold',
+    },
+
     commentActionContainer: {
-        height: 20,
         flexWrap: 'wrap',
         flexDirection: 'row',
-        alignItems: 'center'
+        marginTop:5,
     },
 
     commentActionIssueTime: {
-        fontSize: 14,
+        color: '#989898',
+        fontSize: 10,
+    },
+
+    commentActionLikeIcon: {
+        width: 12,
+        height: 12,
+        resizeMode: 'contain',
+        marginRight: 2,
     },
 
     commentActionLikesCount: {
-        fontSize: 12,
+        color: '#989898',
+        fontSize: 10,
     }
 
 });
