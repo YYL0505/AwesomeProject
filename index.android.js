@@ -7,7 +7,8 @@ import {
     View,
     ListView,
     Navigator,
-    TouchableOpacity
+    TouchableOpacity,
+    TouchableHighlight
 } from 'react-native';
 
 
@@ -18,26 +19,42 @@ class AwesomeProject extends Component {
     render() {
         var NavigationBarRouteMapper = {
             LeftButton(route, navigator, index, navState) {
-                return null;
+                if (index > 0) {
+                    return (
+                        <View style={styles.navigationContainer}>
+                            <TouchableHighlight
+                                onPress={() => navigator.pop()}>
+                                <Image source={require('./asserts/ic_back.png')} style={styles.goBack}/>
+
+                            </TouchableHighlight>
+                            <Text style={styles.navText}>
+                                {route.title}
+                            </Text>
+                        </View>
+
+                    );
+                } else{
+                    return (
+                        <View style={styles.navigationContainer}>
+                            <Text style={styles.navText}>
+                                {route.title}
+                            </Text>
+                        </View>
+                    );
+                }
+
             },
             RightButton(route, navigator, index, navState) {
                 return null;
             },
             Title(route, navigator, index, navState) {
-                return (
-                    <TouchableOpacity
-                        onPress={() => navigator.pop()}>
-                        <Text style={styles.navText}>
-                            {route.id}
-                        </Text>
-                    </TouchableOpacity>
-                );
+                return null;
             }
         };
 
         return (
             <Navigator
-                initialRoute={{id: 'shots'}}
+                initialRoute={{id: 'shots', title: 'Shots'}}
                 renderScene={this.renderScene.bind(this)}
                 navigationBar={
                     <Navigator.NavigationBar
@@ -64,12 +81,21 @@ class AwesomeProject extends Component {
 
 var styles = StyleSheet.create({
         navigationContainer: {
-            backgroundColor: '#246dd5',
-            alignItems: 'center'
+            backgroundColor: '#363636',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            flexDirection: 'row',
+            paddingLeft: 10,
+        },
+        goBack: {
+            marginTop: 13,
+            justifyContent: 'center',
+            resizeMode: 'contain',
         },
         navText: {
+            marginTop: 10,
             color: 'white',
-            fontSize: 12
+            fontSize: 22
         }
     })
     ;
