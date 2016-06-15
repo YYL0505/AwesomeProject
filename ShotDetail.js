@@ -138,9 +138,14 @@ class ShotDetail extends Component {
                         <Text style={styles.commentActionIssueTime}>
                             issued time | Like?
                         </Text>
-                        <Image source={require('./asserts/ic_favorite.png')} style={styles.commentActionLikeIcon}/>
-                        <Text style={styles.commentActionLikesCount}>
-                            1
+                        <Text style={styles.commentActionVacant}>
+
+                        </Text>
+                        <Image
+                            source={require('./asserts/ic_favorite.png')}
+                            style={[styles.commentActionLikeIcon, {opacity: (comment.likes_count == '0')? 0: 1}]} />
+                        <Text style={[styles.commentActionLikesCount, {opacity: (comment.likes_count == '0')? 0: 1}]}>
+                            {comment.likes_count}
                         </Text>
                     </View>
                 </View>
@@ -277,6 +282,11 @@ var styles = StyleSheet.create({
         flexWrap: 'wrap',
         flexDirection: 'row',
         marginTop:5,
+        alignItems: 'flex-end',
+    },
+
+    commentActionVacant: {
+        flex: 1,
     },
 
     commentActionIssueTime: {
