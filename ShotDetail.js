@@ -10,6 +10,8 @@ import {
     WebView
 } from 'react-native';
 
+var HTMLView = require('react-native-htmlview')
+
 class ShotDetail extends Component {
     constructor(props) {
         super(props);
@@ -127,11 +129,9 @@ class ShotDetail extends Component {
                         {comment.user.name}
                     </Text>
 
-                    <WebView
-                        style={styles.commentDescription}
-                        automaticallyAdjustContentInsets={false}
-                        source={{html: comment.body}}/>
-
+                    <HTMLView
+                        value={comment.body}
+                    />
 
                     <View style={styles.commentActionContainer}>
                         <Text style={styles.commentActionIssueTime}>
@@ -238,7 +238,7 @@ var styles = StyleSheet.create({
     commentContainer: {
         flexWrap: 'wrap',
         flexDirection: 'row',
-        marginBottom: 10,
+        marginBottom: 5,
         marginTop: 10,
     },
 
@@ -254,10 +254,6 @@ var styles = StyleSheet.create({
         resizeMode: 'contain',
         borderRadius: 20,
         marginRight: 3,
-    },
-    commentDescription: {
-        height: 30,
-        backgroundColor: '#00000000',
     },
 
     commentActionContainer: {
