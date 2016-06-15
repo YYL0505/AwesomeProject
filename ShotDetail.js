@@ -37,7 +37,7 @@ class ShotDetail extends Component {
             <ListView
                 style={styles.container}
                 dataSource={this.state.dataSource}
-                renderRow={this.renderCommentItem}
+                renderRow={this.renderCommentItem.bind(this)}
                 renderSeparator={this.renderSeparator}
                 renderSectionHeader={this.renderHeader.bind(this)}/>
         );
@@ -124,6 +124,7 @@ class ShotDetail extends Component {
     }
 
     renderCommentItem(comment) {
+        var issuedTime = this.calculateIssuedTime(new Date(comment.created_at));
         return (
             <View style={styles.commentContainer}>
                 <Image source={{uri: comment.user.avatar_url}} style={styles.commentUserAvatar}/>
@@ -140,7 +141,7 @@ class ShotDetail extends Component {
 
                     <View style={styles.commentActionContainer}>
                         <Text style={styles.commentActionIssueTime}>
-                            issued time | Like?
+                            {issuedTime} | Like?
                         </Text>
                         <Text style={styles.commentActionVacant}>
 
@@ -171,6 +172,29 @@ class ShotDetail extends Component {
                 </Text>
             </View>
         );
+    }
+
+    calculateIssuedTime(date) {
+        var MILLISECONDS_MINUTE = 60000;
+        var MILLISECONDS_HOUR = 3600000;
+        var MILLISECONDS_DAY = 86400000;
+        var quantity;
+        var unit;
+
+        var diff = new Date().getTime() - date.getTime();
+        if (diff < MILLISECONDS_HOUR) {
+            quantity =  Math.ceil(diff / MILLISECONDS_MINUTE);
+            unit = ' minute';
+        } else if (diff < MILLISECONDS_DAY) {
+            quantity = Math.ceil(diff / MILLISECONDS_HOUR);
+            unit = ' hour';
+        } else {
+            quantity =  Math.ceil(diff / MILLISECONDS_DAY);
+            unit = ' day';
+        }
+
+        unit = quantity > 1? unit + 's' : unit;
+        return 'about ' + quantity + unit + ' ago';
     }
 }
 var userInfoHtmlViewStyle = StyleSheet.create({
