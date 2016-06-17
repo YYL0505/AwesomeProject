@@ -108,7 +108,7 @@ class ShotsView extends Component {
 
                 refreshable={true} // enable pull-to-refresh for iOS and touch-to-refresh for Android
                 withSections={false} // enable sections
-                enableEmptySection={true}
+                enableEmptySections={true}
                 refreshableTintColor="blue"
                 contentContainerStyle={styles.listView}
             />

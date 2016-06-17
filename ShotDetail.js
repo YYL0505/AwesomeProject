@@ -127,41 +127,42 @@ class ShotDetail extends Component {
     renderCommentItem(comment) {
         var issuedTime = this.calculateIssuedTime(new Date(comment.created_at));
         return (
-            <View style={styles.commentContainer}>
-                <Image source={{uri: comment.user.avatar_url}} style={styles.commentUserAvatar}/>
+            <View>
+                <View style={styles.commentContainer} key={comment}>
+                    <Image source={{uri: comment.user.avatar_url}} style={styles.commentUserAvatar}/>
 
-                <View style={styles.commentRight}>
-                    <Text style={styles.commentUserName}>
-                        {comment.user.name}
-                    </Text>
-
-                    <HTMLView
-                        value={comment.body}
-                        stylesheet={htmlViewStyle}
-                    />
-
-                    <View style={styles.commentActionContainer}>
-                        <Text style={styles.commentActionIssueTime}>
-                            {issuedTime} | Like?
+                    <View style={styles.commentRight}>
+                        <Text style={styles.commentUserName}>
+                            {comment.user.name}
                         </Text>
-                        <Text style={styles.commentActionVacant}>
 
-                        </Text>
-                        <Image
-                            source={require('./asserts/ic_favorite.png')}
-                            style={[styles.commentActionLikeIcon, {opacity: (comment.likes_count == '0')? 0: 1}]} />
-                        <Text style={[styles.commentActionLikesCount, {opacity: (comment.likes_count == '0')? 0: 1}]}>
-                            {comment.likes_count}
-                        </Text>
+                        <HTMLView
+                            value={comment.body}
+                            stylesheet={htmlViewStyle}
+                        />
+
+                        <View style={styles.commentActionContainer}>
+                            <Text style={styles.commentActionIssueTime}>
+                                {issuedTime} | Like?
+                            </Text>
+                            <Text style={styles.commentActionVacant}>
+
+                            </Text>
+                            <Image
+                                source={require('./asserts/ic_favorite.png')}
+                                style={[styles.commentActionLikeIcon, {opacity: (comment.likes_count == '0')? 0: 1}]}/>
+                            <Text
+                                style={[styles.commentActionLikesCount, {opacity: (comment.likes_count == '0')? 0: 1}]}>
+                                {comment.likes_count}
+                            </Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-        );
-    }
 
-    renderSeparator() {
-        return (
-            <View style={styles.commentSeparator}/>
+                <View style={styles.commentSeparator}/>
+            </View>
+
+
         );
     }
 
@@ -184,17 +185,17 @@ class ShotDetail extends Component {
 
         var diff = new Date().getTime() - date.getTime();
         if (diff < MILLISECONDS_HOUR) {
-            quantity =  Math.ceil(diff / MILLISECONDS_MINUTE);
+            quantity = Math.ceil(diff / MILLISECONDS_MINUTE);
             unit = ' minute';
         } else if (diff < MILLISECONDS_DAY) {
             quantity = Math.ceil(diff / MILLISECONDS_HOUR);
             unit = ' hour';
         } else {
-            quantity =  Math.ceil(diff / MILLISECONDS_DAY);
+            quantity = Math.ceil(diff / MILLISECONDS_DAY);
             unit = ' day';
         }
 
-        unit = quantity > 1? unit + 's' : unit;
+        unit = quantity > 1 ? unit + 's' : unit;
         return 'about ' + quantity + unit + ' ago';
     }
 }
@@ -325,7 +326,7 @@ var styles = StyleSheet.create({
     commentActionContainer: {
         flexWrap: 'wrap',
         flexDirection: 'row',
-        marginTop:5,
+        marginTop: 5,
         alignItems: 'flex-end',
     },
 
