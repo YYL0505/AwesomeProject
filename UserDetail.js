@@ -88,37 +88,46 @@ class UserDetail extends Component {
     renderHeader() {
         var userShots = '<p><span>' + this.state.user.shots_count + '</span> Shots</p>';
         var userFollowers = '<p><span>' + this.state.user.followings_count + '</span> Followers</p>';
+        var userFollowers = '<p><span>' + this.state.user.followings_count + '</span> Followers</p>';
         return (
             <View>
-                <View style={styles.userInfoBar}>
-                    <HTMLView
-                        value={userShots}
-                        stylesheet={userInfoHtmlViewStyle}
-                    />
-                    <HTMLView
-                        value={userFollowers}
-                        stylesheet={userInfoHtmlViewStyle}
-                    />
-                </View>
 
                 <View style={styles.userInfo}>
-                    <Image style={styles.userAvatar} source={{uri: this.state.user.avatar_url}}/>
 
-                    <Text style={styles.userName}>
-                        {this.state.user.name}
-                    </Text>
+                    <View style={styles.userInfoBar}>
+                        <HTMLView
+                            value={userShots}
+                            stylesheet={userInfoHtmlViewStyle}
+                        />
+                        <HTMLView
+                            value={userFollowers}
+                            stylesheet={userInfoHtmlViewStyle}
+                        />
+                    </View>
 
-                    <Text style={styles.userLocation}>
-                        {this.state.user.location}
-                    </Text>
+                    <View style={styles.userBasicInfo}>
 
-                    <HTMLView
-                        value={this.state.user.bio}
-                        stylesheet={userEmail}
-                    />
+                        <Image style={styles.userAvatar} source={{uri: this.state.user.avatar_url}}/>
+
+                        <Text style={styles.userName}>
+                            {this.state.user.name}
+                        </Text>
+
+                        <Text style={styles.userLocation}>
+                            {this.state.user.location}
+                        </Text>
+
+                        <HTMLView
+                            value={this.state.user.bio}
+                            stylesheet={userEmail}
+                        />
+
+                    </View>
+                    <View style={styles.commentSeparator}/>
+
                 </View>
 
-                <View style={styles.commentSeparator}/>
+
 
             </View>
         );
@@ -190,13 +199,19 @@ var userEmail = StyleSheet.create({
 
 
 var styles = StyleSheet.create({
+
+    userBasicInfo: {
+        alignItems: 'center',
+        width: 320,
+    },
+
     container: {
         marginTop: 60,
         marginBottom: 20,
     },
 
     listView: {
-        paddingLeft: 25,
+        paddingLeft: 10,
         paddingRight: 10,
         backgroundColor: '#F4F4F4',
         flexWrap: 'wrap',
@@ -204,11 +219,11 @@ var styles = StyleSheet.create({
     },
 
     userInfoBar: {
-        flexWrap: 'wrap',
         flexDirection: 'row',
     },
 
     userInfo: {
+        padding: 10,
     },
 
     userAvatar: {
@@ -216,35 +231,31 @@ var styles = StyleSheet.create({
         width: 50,
         resizeMode: 'contain',
         borderRadius: 20,
+        alignSelf: 'center'
     },
 
     commentSeparator: {
         height: 1,
         backgroundColor: '#CCCCCC',
+        marginTop: 5,
     },
 
     userName: {
         fontWeight: 'bold',
         color: '#464646',
+        alignSelf: 'center'
     },
 
     userLocation: {
-        flex: 1,
         fontSize: 12,
         color: '#989898',
+        alignSelf: 'center'
     },
 
     shotContainer: {
-        flexWrap: 'wrap',
-        flexDirection: 'row',
         backgroundColor: '#ffffff',
-        justifyContent: 'center',
-        alignItems: 'center',
         padding: 5,
-        width: 150,
-        height: 120,
-        marginTop: 10,
-        marginRight: 10,
+        margin: 10,
     },
 
     thumbnail: {
@@ -254,17 +265,16 @@ var styles = StyleSheet.create({
     },
 
     shotActionBar: {
-        flexWrap: 'wrap',
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        width: 120,
-        marginTop: 10,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 5
     },
 
     shotActionBarImage: {
         width: 12,
         height: 12,
-        justifyContent: 'center',
         resizeMode: 'contain',
         marginRight: 2,
     },
