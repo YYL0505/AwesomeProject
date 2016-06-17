@@ -14,6 +14,7 @@ import {
 
 var ShotsView = require("./ShotsView");
 var ShotDetail = require("./ShotDetail");
+var UserDetail = require("./UserDetail");
 
 class AwesomeProject extends Component {
     render() {
@@ -74,6 +75,10 @@ class AwesomeProject extends Component {
             case 'shotDetail':
                 return (
                     <ShotDetail navigator={navigator} title="ShotDetail" route={route}/>
+                );
+            case 'userDetail':
+                return (
+                    <UserDetail navigator={navigator} title="UserDetail" route={route}/>
                 );
         }
     }

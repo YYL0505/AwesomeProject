@@ -85,7 +85,10 @@ class ShotDetail extends Component {
         return (
             <View>
                 <View style={styles.userContainer}>
-                    <Image style={styles.userAvatar} source={{uri: this.state.shot.user.avatar_url}}/>
+                    <TouchableHighlight onPress={() => this.props.navigator.push({id: 'userDetail', title: 'User Detail', userId: this.state.shot.user.id})}>
+                        <Image style={styles.userAvatar} source={{uri: this.state.shot.user.avatar_url}}/>
+
+                    </TouchableHighlight>
 
                     <View style={styles.userInfo}>
                         <Text style={styles.shotTitle}>
@@ -129,7 +132,11 @@ class ShotDetail extends Component {
         return (
             <View>
                 <View style={styles.commentContainer} key={comment}>
-                    <Image source={{uri: comment.user.avatar_url}} style={styles.commentUserAvatar}/>
+
+                    <TouchableHighlight onPress={() => this.props.navigator.push({id: 'userDetail', title: 'User Detail', userId: comment.user.id})}>
+                        <Image source={{uri: comment.user.avatar_url}} style={styles.commentUserAvatar}/>
+
+                    </TouchableHighlight>
 
                     <View style={styles.commentRight}>
                         <Text style={styles.commentUserName}>
