@@ -38,15 +38,50 @@ class UserDetail extends Component {
                 style={styles.container}
                 dataSource={this.state.dataSource}
                 renderRow={this.renderShotItem.bind(this)}
-                renderSectionHeader={this.renderHeader.bind(this)}/>
+                renderSectionHeader={this.renderHeader.bind(this)}
+                contentContainerStyle={styles.listView}
+            />
         );
     }
 
-    renderShotItem() {
+    renderShotItem(shot) {
         return (
-            <Text>
-                shot
-            </Text>
+            <View style={styles.shotContainer}>
+                <TouchableHighlight
+                    onPress={() => this.props.navigator.push({id: 'shotDetail', title: 'Shot Detail', shotId: shot.id})}>
+                    <Image
+                        source={{uri: shot.images.normal}}
+                        style={styles.thumbnail}
+                    />
+
+                </TouchableHighlight>
+
+                <View style={styles.shotActionBar}>
+                    <Image
+                        source={require('./asserts/ic_visibility.png')}
+                        style={styles.shotActionBarImage}
+                    />
+                    <Text style={styles.shotActionBarViewCount}>
+                        {shot.views_count}
+                    </Text>
+
+                    <Image
+                        source={require('./asserts/ic_favorite.png')}
+                        style={styles.shotActionBarImage}
+                    />
+                    <Text style={styles.shotActionBarLikeCount}>
+                        {shot.likes_count}
+                    </Text>
+
+                    <Image
+                        source={require('./asserts/ic_message.png')}
+                        style={styles.shotActionBarImage}
+                    />
+                    <Text style={styles.shotActionBarCommentCount}>
+                        {shot.comments_count}
+                    </Text>
+                </View>
+            </View>
         );
     }
 
@@ -118,7 +153,7 @@ class UserDetail extends Component {
 
 
     fetchingShot() {
-        fetch('https://api.dribbble.com/v1/shots/' + this.props.route.userId + '/shots', {
+        fetch('https://api.dribbble.com/v1/users/' + this.props.route.userId + '/shots', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -148,7 +183,7 @@ var userInfoHtmlViewStyle = StyleSheet.create({
 
 var userEmail = StyleSheet.create({
         p: {
-            color: '#767676'
+            color: '#767676',
         },
     }
 );
@@ -156,8 +191,16 @@ var userEmail = StyleSheet.create({
 
 var styles = StyleSheet.create({
     container: {
-        marginTop: 50,
-        padding: 10,
+        marginTop: 60,
+        marginBottom: 20,
+    },
+
+    listView: {
+        paddingLeft: 25,
+        paddingRight: 10,
+        backgroundColor: '#F4F4F4',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
     },
 
     userInfoBar: {
@@ -166,14 +209,11 @@ var styles = StyleSheet.create({
     },
 
     userInfo: {
-        alignItems: 'center',
     },
 
     userAvatar: {
         height: 50,
         width: 50,
-        flex: 1,
-        justifyContent: 'center',
         resizeMode: 'contain',
         borderRadius: 20,
     },
@@ -194,6 +234,57 @@ var styles = StyleSheet.create({
         color: '#989898',
     },
 
+    shotContainer: {
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        backgroundColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 5,
+        width: 150,
+        height: 120,
+        marginTop: 10,
+        marginRight: 10,
+    },
+
+    thumbnail: {
+        resizeMode: 'cover',
+        width: 140,
+        height: 95,
+    },
+
+    shotActionBar: {
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        width: 120,
+        marginTop: 10,
+    },
+
+    shotActionBarImage: {
+        width: 12,
+        height: 12,
+        justifyContent: 'center',
+        resizeMode: 'contain',
+        marginRight: 2,
+    },
+
+    shotActionBarViewCount: {
+        fontSize: 8,
+        textAlign: 'center',
+        marginRight: 5,
+    },
+
+    shotActionBarLikeCount: {
+        fontSize: 8,
+        textAlign: 'center',
+        marginRight: 5,
+    },
+
+    shotActionBarCommentCount: {
+        fontSize: 8,
+        textAlign: 'center',
+    },
 });
 
 module.exports = UserDetail;
