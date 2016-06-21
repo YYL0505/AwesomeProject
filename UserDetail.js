@@ -7,8 +7,10 @@ import {
     View,
     ListView,
     TouchableHighlight,
+    Platform
 } from 'react-native';
 
+var ShotDetail = require("./ShotDetail");
 var HTMLView = require('react-native-htmlview');
 
 
@@ -48,7 +50,7 @@ class UserDetail extends Component {
         return (
             <View style={styles.shotContainer}>
                 <TouchableHighlight
-                    onPress={() => this.props.navigator.push({id: 'shotDetail', title: 'Shot Detail', shotId: shot.id})}>
+                    onPress={() => this.props.navigator.push({id: 'shotDetail', title: 'Shot Detail', shotId: shot.id, component: ShotDetail})}>
                     <Image
                         source={{uri: shot.images.normal}}
                         style={styles.thumbnail}
@@ -206,7 +208,7 @@ var styles = StyleSheet.create({
     },
 
     container: {
-        marginTop: 60,
+        marginTop: Platform.OS === 'ios' ? 65 : 60,
         marginBottom: 20,
     },
 

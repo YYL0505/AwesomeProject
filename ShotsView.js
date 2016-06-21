@@ -6,8 +6,11 @@ import {
     Text,
     View,
     ListView,
-    TouchableHighlight
+    TouchableHighlight,
+    Platform
 } from 'react-native';
+
+var ShotDetail = require("./ShotDetail");
 
 var GiftedListView = require('react-native-gifted-listview');
 var GiftedSpinner = require('react-native-gifted-spinner');
@@ -28,6 +31,8 @@ class ShotsView extends Component {
                 }
             }).then((response) => response.json())
                 .then((responseData) => {
+                    console.log('data got');
+
                     callback(responseData);
                 });
         }, 1000);
@@ -37,7 +42,7 @@ class ShotsView extends Component {
     _renderRowView(rowData) {
         return (
             <View style={styles.container}>
-                <TouchableHighlight onPress={() => this.props.navigator.push({id: 'shotDetail', title: 'Shot Detail', shotId: rowData.id})}>
+                <TouchableHighlight onPress={() => this.props.navigator.push({id: 'shotDetail', title: 'Shot Detail', shotId: rowData.id, component: ShotDetail})}>
                     <Image
                         source={{uri: rowData.images.normal}}
                         style={styles.thumbnail}
@@ -94,7 +99,32 @@ class ShotsView extends Component {
         );
     }
 
+    _renderRefreshableWaitingView(refreshCallback) {
+        if (Platform.OS !== 'android') {
+            return (
+                <View style={styles.refreshableView}>
+                    <Text style={styles.actionsLabel}>
+                        ↓
+                    </Text>
+                </View>
+            );
+        } else {
+            return (
+                <TouchableHighlight
+                    underlayColor='#c8c7cc'
+                    onPress={refreshCallback}
+                    style={styles.refreshableView}
+                >
+                    <Text style={styles.actionsLabel}>
+                        ↻
+                    </Text>
+                </TouchableHighlight>
+            );
+        }
+    }
+
     render() {
+        console.log('Shots view');
         return (
             <GiftedListView
                 style={styles.list}
@@ -111,6 +141,8 @@ class ShotsView extends Component {
                 enableEmptySections={true}
                 refreshableTintColor="blue"
                 contentContainerStyle={styles.listView}
+
+                refreshableWaitingView={this._renderRefreshableWaitingView}
             />
         );
     }
@@ -118,7 +150,7 @@ class ShotsView extends Component {
 
 var styles = StyleSheet.create({
     list: {
-        marginTop: 50,
+        marginTop: Platform.OS === 'ios' ? 65 : 50,
     },
     container: {
         flexWrap: 'wrap',
@@ -185,6 +217,17 @@ var styles = StyleSheet.create({
         paddingTop: 10,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+
+    refreshableView: {
+        height: 50,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    actionsLabel: {
+        fontSize: 20,
+        color: '#007aff',
     },
 });
 
