@@ -124,7 +124,6 @@ class ShotsView extends Component {
     }
 
     render() {
-        console.log('Shots view');
         return (
             <GiftedListView
                 style={styles.list}
