@@ -7,9 +7,11 @@ import {
     View,
     ListView,
     TouchableHighlight,
-    WebView
+    WebView,
+    Platform
 } from 'react-native';
 
+var UserDetail = require("./UserDetail");
 var HTMLView = require('react-native-htmlview');
 require('./libs/date');
 
@@ -85,7 +87,7 @@ class ShotDetail extends Component {
         return (
             <View>
                 <View style={styles.userContainer}>
-                    <TouchableHighlight onPress={() => this.props.navigator.push({id: 'userDetail', title: 'User Detail', userId: this.state.shot.user.id})}>
+                    <TouchableHighlight onPress={() => this.props.navigator.push({id: 'userDetail', title: 'User Detail', userId: this.state.shot.user.id, component: UserDetail})}>
                         <Image style={styles.userAvatar} source={{uri: this.state.shot.user.avatar_url}}/>
 
                     </TouchableHighlight>
@@ -133,7 +135,7 @@ class ShotDetail extends Component {
             <View>
                 <View style={styles.commentContainer} key={comment}>
 
-                    <TouchableHighlight onPress={() => this.props.navigator.push({id: 'userDetail', title: 'User Detail', userId: comment.user.id})}>
+                    <TouchableHighlight onPress={() => this.props.navigator.push({id: 'userDetail', title: 'User Detail', userId: comment.user.id, component: UserDetail})}>
                         <Image source={{uri: comment.user.avatar_url}} style={styles.commentUserAvatar}/>
 
                     </TouchableHighlight>
@@ -225,7 +227,7 @@ var htmlViewStyle = StyleSheet.create({
 
 var styles = StyleSheet.create({
     container: {
-        marginTop: 60,
+        marginTop: Platform.OS === 'ios' ? 65 : 50,
         marginBottom: 20,
         paddingLeft: 20,
         paddingRight: 20,
