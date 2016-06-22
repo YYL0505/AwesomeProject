@@ -220,7 +220,6 @@ var styles = StyleSheet.create({
 
     container: {
         marginTop: Platform.OS === 'ios' ? 65 : 60,
-        marginBottom: 20,
     },
 
     spinnerContainer: {
