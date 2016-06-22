@@ -42,15 +42,25 @@ class UserDetail extends Component {
                 renderRow={this.renderShotItem.bind(this)}
                 renderSectionHeader={this.renderHeader.bind(this)}
                 contentContainerStyle={styles.listView}
+                enableEmptySections={true}
             />
         );
+    }
+
+    goToShotDetailPage(shot) {
+        this.props.navigator.push({
+            id: 'shotDetail',
+            title: 'Shot Detail',
+            shotId: shot.id,
+            component: require('./ShotDetail')
+        });
+
     }
 
     renderShotItem(shot) {
         return (
             <View style={styles.shotContainer}>
-                <TouchableHighlight
-                    onPress={() => this.props.navigator.push({id: 'shotDetail', title: 'Shot Detail', shotId: shot.id, component: ShotDetail})}>
+                <TouchableHighlight onPress={this.goToShotDetailPage.bind(this, shot)}>
                     <Image
                         source={{uri: shot.images.normal}}
                         style={styles.thumbnail}

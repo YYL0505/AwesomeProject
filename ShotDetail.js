@@ -42,7 +42,8 @@ class ShotDetail extends Component {
                 dataSource={this.state.dataSource}
                 renderRow={this.renderCommentItem.bind(this)}
                 renderSeparator={this.renderSeparator}
-                renderSectionHeader={this.renderHeader.bind(this)}/>
+                renderSectionHeader={this.renderHeader.bind(this)}
+                enableEmptySections={true}/>
         );
     }
 
@@ -86,7 +87,7 @@ class ShotDetail extends Component {
             id: 'userDetail',
             title: 'User Detail',
             userId: userId,
-            component: UserDetail
+            component: require("./UserDetail")
         });
     }
 
