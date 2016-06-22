@@ -9,6 +9,7 @@ import {
     TouchableHighlight,
     Platform
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import ShotDetail from './ShotDetail';
 var HTMLView = require('react-native-htmlview');
@@ -148,9 +149,9 @@ class UserDetail extends Component {
     renderLoadingView() {
         return (
             <View style={styles.container}>
-                <Text>
-                    Loading movies...
-                </Text>
+                <View style={styles.spinnerContainer}>
+                    <Spinner visible={!this.state.loaded}/>
+                </View>
             </View>
         );
     }
@@ -220,6 +221,10 @@ var styles = StyleSheet.create({
     container: {
         marginTop: Platform.OS === 'ios' ? 65 : 60,
         marginBottom: 20,
+    },
+
+    spinnerContainer: {
+        transform: [{'translate': [0, 0, 1]}],
     },
 
     listView: {

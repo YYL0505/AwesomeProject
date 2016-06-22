@@ -10,6 +10,7 @@ import {
     WebView,
     Platform
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import UserDetail from './UserDetail';
 var HTMLView = require('react-native-htmlview');
@@ -188,9 +189,9 @@ class ShotDetail extends Component {
     renderLoadingView() {
         return (
             <View style={styles.container}>
-                <Text>
-                    Loading movies...
-                </Text>
+                <View style={styles.spinnerContainer}>
+                    <Spinner visible={!this.state.loaded}/>
+                </View>
             </View>
         );
     }
@@ -241,6 +242,10 @@ var styles = StyleSheet.create({
         marginBottom: 20,
         paddingLeft: 20,
         paddingRight: 20,
+    },
+
+    spinnerContainer: {
+        transform: [{'translate': [0, 0, 1]}],
     },
 
     userContainer: {
