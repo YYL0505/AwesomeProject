@@ -10,7 +10,7 @@ import {
     Platform
 } from 'react-native';
 
-var ShotDetail = require("./ShotDetail");
+import ShotDetail from './ShotDetail';
 var HTMLView = require('react-native-htmlview');
 
 
@@ -52,7 +52,7 @@ class UserDetail extends Component {
             id: 'shotDetail',
             title: 'Shot Detail',
             shotId: shot.id,
-            component: require('./ShotDetail')
+            component: ShotDetail
         });
 
     }
@@ -309,4 +309,4 @@ var styles = StyleSheet.create({
     },
 });
 
-module.exports = UserDetail;
+export default UserDetail;

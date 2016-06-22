@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 
-var ShotsView = require("./ShotsView");
+import ShotsView from './ShotsView'
 
 class AwesomeProject extends Component {
   render() {

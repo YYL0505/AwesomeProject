@@ -11,7 +11,7 @@ import {
     ActivityIndicatorIOS
 } from 'react-native';
 
-var ShotDetail = require("./ShotDetail");
+import ShotDetail from './ShotDetail'
 
 var GiftedListView = require('react-native-gifted-listview');
 var GiftedSpinner = require('react-native-gifted-spinner');
@@ -246,4 +246,4 @@ var styles = StyleSheet.create({
     },
 });
 
-module.exports = ShotsView;
+export default ShotsView;
