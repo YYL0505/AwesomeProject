@@ -238,7 +238,7 @@ var htmlViewStyle = StyleSheet.create({
 
 var styles = StyleSheet.create({
     container: {
-        marginTop: Platform.OS === 'ios' ? 65 : 50,
+        marginTop: Platform.OS === 'ios' ? 70 : 55,
         marginBottom: 20,
         paddingLeft: 20,
         paddingRight: 20,
