@@ -40,10 +40,19 @@ class ShotsView extends Component {
 
     }
 
+    goToShotDetailPage(rowData) {
+        this.props.navigator.push({
+            id: 'shotDetail',
+            title: 'Shot Detail',
+            shotId: rowData.id,
+            component: ShotDetail,
+        });
+    }
+
     _renderRowView(rowData) {
         return (
             <View style={styles.container}>
-                <TouchableHighlight onPress={() => this.props.navigator.push({id: 'shotDetail', title: 'Shot Detail', shotId: rowData.id, component: ShotDetail})}>
+                <TouchableHighlight onPress={this.goToShotDetailPage.bind(this, rowData)}>
                     <Image
                         source={{uri: rowData.images.normal}}
                         style={styles.thumbnail}
@@ -101,7 +110,7 @@ class ShotsView extends Component {
             );
         } else {
             return (
-                <ActivityIndicatorIOS animating={true} size="large" />
+                <ActivityIndicatorIOS animating={true} size="large"/>
             );
         }
     }
