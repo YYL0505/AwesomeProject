@@ -12,9 +12,9 @@ import {
 } from 'react-native';
 
 
-var ShotsView = require("./ShotsView");
-var ShotDetail = require("./ShotDetail");
-var UserDetail = require("./UserDetail");
+import ShotsView from './ShotsView';
+import ShotDetail from './ShotDetail';
+import UserDetail from './UserDetail';
 
 class AwesomeProject extends Component {
     render() {
