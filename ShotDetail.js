@@ -81,13 +81,22 @@ class ShotDetail extends Component {
             }).done();
     }
 
+    goToUserDetail(userId) {
+        this.props.navigator.push({
+            id: 'userDetail',
+            title: 'User Detail',
+            userId: userId,
+            component: UserDetail
+        });
+    }
+
     renderHeader() {
         var createDate = new Date(this.state.shot.created_at).toString('MMMM dS, yyyy');
         var userInfo = '<p>By <span class="username">' + this.state.shot.user.name + '</span> on ' + createDate + '</p>'
         return (
             <View>
                 <View style={styles.userContainer}>
-                    <TouchableHighlight onPress={() => this.props.navigator.push({id: 'userDetail', title: 'User Detail', userId: this.state.shot.user.id, component: UserDetail})}>
+                    <TouchableHighlight onPress={this.goToUserDetail.bind(this, this.state.shot.user.id)}>
                         <Image style={styles.userAvatar} source={{uri: this.state.shot.user.avatar_url}}/>
 
                     </TouchableHighlight>
@@ -135,7 +144,7 @@ class ShotDetail extends Component {
             <View>
                 <View style={styles.commentContainer} key={comment}>
 
-                    <TouchableHighlight onPress={() => this.props.navigator.push({id: 'userDetail', title: 'User Detail', userId: comment.user.id, component: UserDetail})}>
+                    <TouchableHighlight onPress={this.goToUserDetail.bind(this, comment.user.id)}>
                         <Image source={{uri: comment.user.avatar_url}} style={styles.commentUserAvatar}/>
 
                     </TouchableHighlight>
