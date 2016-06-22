@@ -7,7 +7,8 @@ import {
     View,
     ListView,
     TouchableHighlight,
-    Platform
+    Platform,
+    ActivityIndicatorIOS
 } from 'react-native';
 
 var ShotDetail = require("./ShotDetail");
@@ -92,11 +93,17 @@ class ShotsView extends Component {
     }
 
     _renderPaginationFetchingView() {
-        return (
-            <View style={styles.paginationView}>
-                <GiftedSpinner style={styles.loadingActionsLabel}/>
-            </View>
-        );
+        if (Platform.OS === 'android') {
+            return (
+                <View style={styles.paginationView}>
+                    <GiftedSpinner style={styles.loadingActionsLabel}/>
+                </View>
+            );
+        } else {
+            return (
+                <ActivityIndicatorIOS animating={true} size="large" />
+            );
+        }
     }
 
     _renderRefreshableWaitingView(refreshCallback) {
