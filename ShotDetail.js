@@ -43,7 +43,7 @@ class ShotDetail extends Component {
                 dataSource={this.state.dataSource}
                 renderRow={this.renderCommentItem.bind(this)}
                 renderSeparator={this.renderSeparator}
-                renderSectionHeader={this.renderHeader.bind(this)}
+                renderHeader={this.renderHeader.bind(this)}
                 enableEmptySections={true}/>
         );
     }

@@ -41,7 +41,7 @@ class UserDetail extends Component {
                 style={styles.container}
                 dataSource={this.state.dataSource}
                 renderRow={this.renderShotItem.bind(this)}
-                renderSectionHeader={this.renderHeader.bind(this)}
+                renderHeader={this.renderHeader.bind(this)}
                 contentContainerStyle={styles.listView}
                 enableEmptySections={true}
             />
