@@ -12,9 +12,9 @@ import {
 } from 'react-native';
 
 
-import ShotsView from './ShotsView';
-import ShotDetail from './ShotDetail';
-import UserDetail from './UserDetail';
+import ShotsView from './App/components/ShotsView';
+import ShotDetail from './App/components/ShotDetail';
+import UserDetail from './App/components/UserDetail';
 
 class AwesomeProject extends Component {
     render() {

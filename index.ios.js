@@ -7,8 +7,7 @@ import {
     NavigatorIOS,
 } from 'react-native';
 
-
-import ShotsView from './ShotsView'
+import ShotsView from './App/components/ShotsView'
 
 class AwesomeProject extends Component {
   render() {
