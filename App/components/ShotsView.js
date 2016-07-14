@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import ShotDetail from './ShotDetail'
+import ShotCell from './ShotCell'
 
 var GiftedListView = require('react-native-gifted-listview');
 var GiftedSpinner = require('react-native-gifted-spinner');
@@ -37,56 +38,10 @@ class ShotsView extends Component {
                     callback(responseData);
                 });
         }, 1000);
-
-    }
-
-    goToShotDetailPage(rowData) {
-        this.props.navigator.push({
-            id: 'shotDetail',
-            title: 'Shot Detail',
-            shotId: rowData.id,
-            component: ShotDetail,
-        });
     }
 
     _renderRowView(rowData) {
-        return (
-            <View style={styles.container}>
-                <TouchableHighlight onPress={this.goToShotDetailPage.bind(this, rowData)}>
-                    <Image
-                        source={{uri: rowData.images.normal}}
-                        style={styles.thumbnail}
-                    />
-
-                </TouchableHighlight>
-
-                <View style={styles.shotActionBar}>
-                    <Image
-                        source={require('../asserts/ic_visibility.png')}
-                        style={styles.shotActionBarImage}
-                    />
-                    <Text style={styles.shotActionBarViewCount}>
-                        {rowData.views_count}
-                    </Text>
-
-                    <Image
-                        source={require('../asserts/ic_favorite.png')}
-                        style={styles.shotActionBarImage}
-                    />
-                    <Text style={styles.shotActionBarLikeCount}>
-                        {rowData.likes_count}
-                    </Text>
-
-                    <Image
-                        source={require('../asserts/ic_message.png')}
-                        style={styles.shotActionBarImage}
-                    />
-                    <Text style={styles.shotActionBarCommentCount}>
-                        {rowData.comments_count}
-                    </Text>
-                </View>
-            </View>
-        );
+        return (<ShotCell shot={rowData} navigator={this.props.navigator}/>);
     }
 
     _renderPaginationWaitingView(paginateCallback) {
@@ -166,51 +121,6 @@ class ShotsView extends Component {
 var styles = StyleSheet.create({
     list: {
         marginTop: Platform.OS === 'ios' ? 65 : 50,
-    },
-    container: {
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        backgroundColor: '#ffffff',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 5,
-        width: 150,
-        height: 120,
-        marginTop: 10,
-        marginRight: 10,
-    },
-    thumbnail: {
-        resizeMode: 'cover',
-        width: 140,
-        height: 95,
-    },
-    shotActionBar: {
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        width: 120,
-        marginTop: 10,
-    },
-    shotActionBarImage: {
-        width: 12,
-        height: 12,
-        justifyContent: 'center',
-        resizeMode: 'contain',
-        marginRight: 2,
-    },
-    shotActionBarViewCount: {
-        fontSize: 8,
-        textAlign: 'center',
-        marginRight: 5,
-    },
-    shotActionBarLikeCount: {
-        fontSize: 8,
-        textAlign: 'center',
-        marginRight: 5,
-    },
-    shotActionBarCommentCount: {
-        fontSize: 8,
-        textAlign: 'center',
     },
     listView: {
         backgroundColor: '#F4F4F4',
