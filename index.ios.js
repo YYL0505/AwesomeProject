@@ -1,35 +1,16 @@
 import React, {Component} from 'react';
 import {
-    AppRegistry,
-    Image,
-    StyleSheet,
-    View,
-    NavigatorIOS,
+    AppRegistry
 } from 'react-native';
 
-import ShotsView from './App/components/ShotsView'
+import App from './App/containers/App';
 
 class AwesomeProject extends Component {
   render() {
-
     return (
-        <NavigatorIOS
-            style={styles.container}
-            initialRoute={{
-            component: ShotsView,
-            title: 'Shots',
-          }}
-        />
+        <App />
     );
   }
-  
 }
 
-var styles = StyleSheet.create({
-      container: {
-          flex: 1,
-          backgroundColor: '#111111',
-      },
-    })
-    ;
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
