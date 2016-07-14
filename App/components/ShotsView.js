@@ -62,7 +62,7 @@ class ShotsView extends Component {
 
                 <View style={styles.shotActionBar}>
                     <Image
-                        source={require('../../asserts/ic_visibility.png')}
+                        source={require('../asserts/ic_visibility.png')}
                         style={styles.shotActionBarImage}
                     />
                     <Text style={styles.shotActionBarViewCount}>
@@ -70,7 +70,7 @@ class ShotsView extends Component {
                     </Text>
 
                     <Image
-                        source={require('../../asserts/ic_favorite.png')}
+                        source={require('../asserts/ic_favorite.png')}
                         style={styles.shotActionBarImage}
                     />
                     <Text style={styles.shotActionBarLikeCount}>
@@ -78,7 +78,7 @@ class ShotsView extends Component {
                     </Text>
 
                     <Image
-                        source={require('../../asserts/ic_message.png')}
+                        source={require('../asserts/ic_message.png')}
                         style={styles.shotActionBarImage}
                     />
                     <Text style={styles.shotActionBarCommentCount}>

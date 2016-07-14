@@ -121,17 +121,17 @@ class ShotDetail extends Component {
                 </View>
 
                 <View style={styles.actionContainer}>
-                    <Image source={require('../../asserts/ic_visibility.png')} style={styles.shotActionBarImage}/>
+                    <Image source={require('../asserts/ic_visibility.png')} style={styles.shotActionBarImage}/>
                     <Text style={styles.shotActionBarViewCount}>
                         {this.state.shot.views_count}
                     </Text>
 
-                    <Image source={require('../../asserts/ic_favorite.png')} style={styles.shotActionBarImage}/>
+                    <Image source={require('../asserts/ic_favorite.png')} style={styles.shotActionBarImage}/>
                     <Text style={styles.shotActionBarLikeCount}>
                         {this.state.shot.likes_count}
                     </Text>
 
-                    <Image source={require('../../asserts/ic_message.png')} style={styles.shotActionBarImage}/>
+                    <Image source={require('../asserts/ic_message.png')} style={styles.shotActionBarImage}/>
                     <Text style={styles.shotActionBarCommentCount}>
                         {this.state.shot.comments_count}
                     </Text>
@@ -169,7 +169,7 @@ class ShotDetail extends Component {
 
                             </Text>
                             <Image
-                                source={require('../../asserts/ic_favorite.png')}
+                                source={require('../asserts/ic_favorite.png')}
                                 style={[styles.commentActionLikeIcon, {opacity: (comment.likes_count == '0')? 0: 1}]}/>
                             <Text
                                 style={[styles.commentActionLikesCount, {opacity: (comment.likes_count == '0')? 0: 1}]}>

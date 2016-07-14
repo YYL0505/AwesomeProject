@@ -25,7 +25,7 @@ class AwesomeProject extends Component {
                         <View style={styles.navigationContainer}>
                             <TouchableHighlight
                                 onPress={() => navigator.pop()}>
-                                <Image source={require('./asserts/ic_back.png')} style={styles.goBack}/>
+                                <Image source={require('./App/asserts/ic_back.png')} style={styles.goBack}/>
 
                             </TouchableHighlight>
                             <Text style={styles.navText}>
