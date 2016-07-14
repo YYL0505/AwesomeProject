@@ -13,7 +13,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import ShotDetail from './ShotDetail';
 var HTMLView = require('react-native-htmlview');
-
+import ShotCell from './ShotCell'
 
 class UserDetail extends Component {
     constructor(props) {
@@ -47,55 +47,9 @@ class UserDetail extends Component {
             />
         );
     }
-
-    goToShotDetailPage(shot) {
-        this.props.navigator.push({
-            id: 'shotDetail',
-            title: 'Shot Detail',
-            shotId: shot.id,
-            component: ShotDetail
-        });
-
-    }
-
+  
     renderShotItem(shot) {
-        return (
-            <View style={styles.shotContainer}>
-                <TouchableHighlight onPress={this.goToShotDetailPage.bind(this, shot)}>
-                    <Image
-                        source={{uri: shot.images.normal}}
-                        style={styles.thumbnail}
-                    />
-
-                </TouchableHighlight>
-
-                <View style={styles.shotActionBar}>
-                    <Image
-                        source={require('../asserts/ic_visibility.png')}
-                        style={styles.shotActionBarImage}
-                    />
-                    <Text style={styles.shotActionBarViewCount}>
-                        {shot.views_count}
-                    </Text>
-
-                    <Image
-                        source={require('../asserts/ic_favorite.png')}
-                        style={styles.shotActionBarImage}
-                    />
-                    <Text style={styles.shotActionBarLikeCount}>
-                        {shot.likes_count}
-                    </Text>
-
-                    <Image
-                        source={require('../asserts/ic_message.png')}
-                        style={styles.shotActionBarImage}
-                    />
-                    <Text style={styles.shotActionBarCommentCount}>
-                        {shot.comments_count}
-                    </Text>
-                </View>
-            </View>
-        );
+      return (<ShotCell shot={shot} navigator={this.props.navigator}/>);
     }
 
     renderHeader() {
