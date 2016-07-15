@@ -11,7 +11,7 @@ import {
 
 import ShotsView from './ShotsView';
 import ShotDetail from './ShotDetail';
-import UserDetail from './UserDetail';
+import UserDetail from '../containers/UserDetail';
 
 class AndroidBaseApp extends Component {
     render() {

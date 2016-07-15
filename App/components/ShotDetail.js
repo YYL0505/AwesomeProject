@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import UserDetail from './UserDetail';
+import UserDetail from '../containers/UserDetail';
 var HTMLView = require('react-native-htmlview');
 require('../../libs/date');
 

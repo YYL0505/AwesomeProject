@@ -9,9 +9,9 @@ import {
 import Spinner from 'react-native-loading-spinner-overlay';
 import {connect} from 'react-redux';
 
-import ShotDetail from './ShotDetail';
-import ShotCell from './ShotCell'
-import HeaderForUserDetail from './HeaderForUserDetail'
+import ShotDetail from '../components/ShotDetail';
+import ShotCell from '../components/ShotCell'
+import HeaderForUserDetail from '../components/HeaderForUserDetail'
 import api from '../utils/api';
 
 class UserDetail extends Component {
