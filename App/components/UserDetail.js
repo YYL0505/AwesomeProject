@@ -19,9 +19,6 @@ import ShotCell from './ShotCell'
 class UserDetail extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            loaded: false,
-        };
     }
 
     componentDidMount() {
@@ -29,7 +26,7 @@ class UserDetail extends Component {
     }
 
     render() {
-        if (!this.state.loaded) {
+        if (this.props.state.default.loading.isLoading) {
             return this.renderLoadingView();
         }
       
@@ -84,7 +81,7 @@ class UserDetail extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.spinnerContainer}>
-                    <Spinner visible={!this.state.loaded}/>
+                    <Spinner visible={this.props.state.default.loading.isLoading}/>
                 </View>
             </View>
         );
@@ -123,9 +120,9 @@ class UserDetail extends Component {
                         type: 'FETCH_SHOTS',
                         shots: responseData
                       });
-                this.setState({
-                    loaded: true,
-                });
+                this.props.dispatch({
+                        type: 'TOGGLE_LOADING_OFF'
+                      });
             }).done();
     }
 
