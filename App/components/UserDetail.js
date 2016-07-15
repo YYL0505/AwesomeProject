@@ -15,12 +15,7 @@ import {connect} from 'react-redux';
 import ShotDetail from './ShotDetail';
 var HTMLView = require('react-native-htmlview');
 import ShotCell from './ShotCell'
-
-const requestHeader = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
-};
+import api from '../utils/api';
 
 class UserDetail extends Component {
     constructor(props) {
@@ -50,7 +45,7 @@ class UserDetail extends Component {
     }
   
     renderShotItem(shot) {
-      return (<ShotCell shot={shot} navigator={this.props.navigator}/>);
+        return (<ShotCell shot={shot} navigator={this.props.navigator}/>);
     }
 
     renderHeader(userInfo) {
@@ -93,11 +88,8 @@ class UserDetail extends Component {
     }
 
     fetchData() {
-        fetch('https://api.dribbble.com/v1/users/' + this.props.route.userId, {
-            method: 'GET',
-            headers: requestHeader
-        }).then((response) => response.json())
-            .then((responseData) => {
+        api.fetchUser(this.props.route.userId)
+          .then((responseData) => {
                 this.props.dispatch({
                   type: 'FETCH_USER_INFO',
                   userInfo: responseData
@@ -108,11 +100,8 @@ class UserDetail extends Component {
 
 
     fetchingShot() {
-        fetch('https://api.dribbble.com/v1/users/' + this.props.route.userId + '/shots', {
-            method: 'GET',
-            headers: requestHeader
-        }).then((response) => response.json())
-            .then((responseData) => {
+         api.fetchShotsForUser(this.props.route.userId)
+           .then((responseData) => {
                 this.props.dispatch({
                         type: 'FETCH_SHOTS',
                         shots: responseData
@@ -141,7 +130,6 @@ var userEmail = StyleSheet.create({
         },
     }
 );
-
 
 var styles = StyleSheet.create({
 
