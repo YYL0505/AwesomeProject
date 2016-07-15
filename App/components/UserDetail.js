@@ -10,6 +10,7 @@ import {
     Platform
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import {connect} from 'react-redux';
 
 import ShotDetail from './ShotDetail';
 var HTMLView = require('react-native-htmlview');
@@ -19,11 +20,7 @@ class UserDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2,
-            }),
             loaded: false,
-            user: null,
         };
     }
 
@@ -35,13 +32,15 @@ class UserDetail extends Component {
         if (!this.state.loaded) {
             return this.renderLoadingView();
         }
-
+      
+        const userState = this.props.state.default.user;
         return (
             <ListView
+              
                 style={styles.list}
-                dataSource={this.state.dataSource}
+                dataSource={userState.shots}
                 renderRow={this.renderShotItem.bind(this)}
-                renderHeader={this.renderHeader.bind(this)}
+                renderHeader={this.renderHeader.bind(this, userState.userInfo)}
                 contentContainerStyle={styles.listView}
                 enableEmptySections={true}
             />
@@ -52,10 +51,10 @@ class UserDetail extends Component {
       return (<ShotCell shot={shot} navigator={this.props.navigator}/>);
     }
 
-    renderHeader() {
-        var userShots = '<p><span>' + this.state.user.shots_count + '</span> Shots</p>';
-        var userFollowers = '<p><span>' + this.state.user.followings_count + '</span> Followers</p>';
-        var userFollowers = '<p><span>' + this.state.user.followings_count + '</span> Followers</p>';
+    renderHeader(userInfo) {
+        var userShots = '<p><span>' + userInfo.shots_count + '</span> Shots</p>';
+        var userFollowers = '<p><span>' + userInfo.followings_count + '</span> Followers</p>';
+        var userFollowers = '<p><span>' + userInfo.followings_count + '</span> Followers</p>';
         return (
             <View>
                 <View style={styles.userInfo}>
@@ -66,13 +65,13 @@ class UserDetail extends Component {
                     </View>
 
                     <View style={styles.userBasicInfo}>
-                        <Image style={styles.userAvatar} source={{uri: this.state.user.avatar_url}}/>
+                        <Image style={styles.userAvatar} source={{uri: userInfo.avatar_url}}/>
 
-                        <Text style={styles.userName}> {this.state.user.name}  </Text>
+                        <Text style={styles.userName}> {userInfo.name}  </Text>
 
-                        <Text style={styles.userLocation}> {this.state.user.location} </Text>
+                        <Text style={styles.userLocation}> {userInfo.location} </Text>
 
-                        <HTMLView  value={this.state.user.bio} stylesheet={userEmail} />
+                        <HTMLView  value={userInfo.bio} stylesheet={userEmail} />
                     </View>
                   
                     <View style={styles.commentSeparator}/>
@@ -101,8 +100,9 @@ class UserDetail extends Component {
             }
         }).then((response) => response.json())
             .then((responseData) => {
-                this.setState({
-                    user: responseData,
+                this.props.dispatch({
+                  type: 'FETCH_USER_INFO',
+                  userInfo: responseData
                 });
                 this.fetchingShot();
             })
@@ -119,8 +119,11 @@ class UserDetail extends Component {
             }
         }).then((response) => response.json())
             .then((responseData) => {
+                this.props.dispatch({
+                        type: 'FETCH_SHOTS',
+                        shots: responseData
+                      });
                 this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(responseData),
                     loaded: true,
                 });
             }).done();
@@ -205,4 +208,9 @@ var styles = StyleSheet.create({
     },
 });
 
-export default UserDetail;
+function selector(state) {
+    return {
+        state: state
+    }
+}
+export default connect(selector)(UserDetail);
