@@ -49,9 +49,7 @@ class ShotsView extends Component {
             <TouchableHighlight
                 onPress={paginateCallback}
                 style={styles.paginationView}>
-                <Text style={styles.loadMoreActionsLabel}>
-                    Load more
-                </Text>
+                <Text style={styles.loadMoreActionsLabel}> Load more  </Text>
             </TouchableHighlight>
         );
     }
@@ -74,9 +72,7 @@ class ShotsView extends Component {
         if (Platform.OS !== 'android') {
             return (
                 <View style={styles.refreshableView}>
-                    <Text style={styles.actionsLabel}>
-                        ↓
-                    </Text>
+                    <Text style={styles.actionsLabel}>  ↓ </Text>
                 </View>
             );
         } else {
@@ -86,9 +82,7 @@ class ShotsView extends Component {
                     onPress={refreshCallback}
                     style={styles.refreshableView}
                 >
-                    <Text style={styles.actionsLabel}>
-                        ↻
-                    </Text>
+                    <Text style={styles.actionsLabel}>  ↻ </Text>
                 </TouchableHighlight>
             );
         }

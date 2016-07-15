@@ -58,44 +58,25 @@ class UserDetail extends Component {
         var userFollowers = '<p><span>' + this.state.user.followings_count + '</span> Followers</p>';
         return (
             <View>
-
                 <View style={styles.userInfo}>
-
                     <View style={styles.userInfoBar}>
-                        <HTMLView
-                            value={userShots}
-                            stylesheet={userInfoHtmlViewStyle}
-                        />
-                        <HTMLView
-                            value={userFollowers}
-                            stylesheet={userInfoHtmlViewStyle}
-                        />
+                        <HTMLView value={userShots} stylesheet={userInfoHtmlViewStyle} />
+                        
+                        <HTMLView  value={userFollowers} stylesheet={userInfoHtmlViewStyle} />
                     </View>
 
                     <View style={styles.userBasicInfo}>
-
                         <Image style={styles.userAvatar} source={{uri: this.state.user.avatar_url}}/>
 
-                        <Text style={styles.userName}>
-                            {this.state.user.name}
-                        </Text>
+                        <Text style={styles.userName}> {this.state.user.name}  </Text>
 
-                        <Text style={styles.userLocation}>
-                            {this.state.user.location}
-                        </Text>
+                        <Text style={styles.userLocation}> {this.state.user.location} </Text>
 
-                        <HTMLView
-                            value={this.state.user.bio}
-                            stylesheet={userEmail}
-                        />
-
+                        <HTMLView  value={this.state.user.bio} stylesheet={userEmail} />
                     </View>
+                  
                     <View style={styles.commentSeparator}/>
-
                 </View>
-
-
-
             </View>
         );
     }
