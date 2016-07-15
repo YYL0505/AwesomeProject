@@ -16,6 +16,12 @@ import ShotDetail from './ShotDetail';
 var HTMLView = require('react-native-htmlview');
 import ShotCell from './ShotCell'
 
+const requestHeader = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
+};
+
 class UserDetail extends Component {
     constructor(props) {
         super(props);
@@ -33,7 +39,6 @@ class UserDetail extends Component {
         const userState = this.props.state.default.user;
         return (
             <ListView
-              
                 style={styles.list}
                 dataSource={userState.shots}
                 renderRow={this.renderShotItem.bind(this)}
@@ -90,11 +95,7 @@ class UserDetail extends Component {
     fetchData() {
         fetch('https://api.dribbble.com/v1/users/' + this.props.route.userId, {
             method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
-            }
+            headers: requestHeader
         }).then((response) => response.json())
             .then((responseData) => {
                 this.props.dispatch({
@@ -109,11 +110,7 @@ class UserDetail extends Component {
     fetchingShot() {
         fetch('https://api.dribbble.com/v1/users/' + this.props.route.userId + '/shots', {
             method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
-            }
+            headers: requestHeader
         }).then((response) => response.json())
             .then((responseData) => {
                 this.props.dispatch({
