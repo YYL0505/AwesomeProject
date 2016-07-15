@@ -23,6 +23,22 @@ var api = {
         }).then((response) => response.json());
     },
   
+    fetchShot(shotId) {
+          var url = 'https://api.dribbble.com/v1/shots/' + shotId;
+
+          return fetch(url, {
+              method: 'GET',
+              headers: requestHeader
+          }).then((response) => response.json());
+    },
+  
+    fetchCommentsForShot(shotId) {
+          var url = 'https://api.dribbble.com/v1/shots/' + shotId + '/comments';
+          return fetch(url, {
+              method: 'GET',
+              headers: requestHeader
+          }).then((response) => response.json());
+    },
 };
 
 export default api;

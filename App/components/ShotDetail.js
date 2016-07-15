@@ -13,6 +13,7 @@ import {
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import UserDetail from '../containers/UserDetail';
+import api from '../utils/api';
 var HTMLView = require('react-native-htmlview');
 require('../../libs/date');
 
@@ -49,33 +50,18 @@ class ShotDetail extends Component {
     }
 
     fetchData() {
-        fetch('https://api.dribbble.com/v1/shots/' + this.props.route.shotId, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
-            }
-        }).then((response) => response.json())
+        api.fetchShot(this.props.route.shotId)
             .then((responseData) => {
                 this.setState({
                     shot: responseData,
                 });
-
                 this.fetchingComment();
             })
     }
 
     fetchingComment() {
-        fetch('https://api.dribbble.com/v1/shots/' + this.props.route.shotId + '/comments', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
-            }
-        }).then((response) => response.json())
-            .then((responseData) => {
+        api.fetchCommentsForShot(this.props.route.shotId)
+          .then((responseData) => {
                 this.setState({
                     dataSource: this.state.dataSource.cloneWithRows(responseData),
                     loaded: true,
