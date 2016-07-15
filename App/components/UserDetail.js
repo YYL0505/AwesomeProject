@@ -38,7 +38,7 @@ class UserDetail extends Component {
 
         return (
             <ListView
-                style={styles.container}
+                style={styles.list}
                 dataSource={this.state.dataSource}
                 renderRow={this.renderShotItem.bind(this)}
                 renderHeader={this.renderHeader.bind(this)}
@@ -172,7 +172,7 @@ var styles = StyleSheet.create({
         width: 320,
     },
 
-    container: {
+    list: {
         marginTop: Platform.OS === 'ios' ? 65 : 60,
     },
 
@@ -181,9 +181,10 @@ var styles = StyleSheet.create({
     },
 
     listView: {
-        paddingLeft: 10,
-        paddingRight: 10,
         backgroundColor: '#F4F4F4',
+        paddingLeft: 20,
+        paddingRight: 10,
+        justifyContent: 'center',
         flexWrap: 'wrap',
         flexDirection: 'row',
     },
@@ -220,50 +221,6 @@ var styles = StyleSheet.create({
         fontSize: 12,
         color: '#989898',
         alignSelf: 'center'
-    },
-
-    shotContainer: {
-        backgroundColor: '#ffffff',
-        padding: 5,
-        margin: 10,
-    },
-
-    thumbnail: {
-        resizeMode: 'cover',
-        width: 140,
-        height: 95,
-    },
-
-    shotActionBar: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        marginLeft: 5,
-        marginRight: 5,
-        marginTop: 5
-    },
-
-    shotActionBarImage: {
-        width: 12,
-        height: 12,
-        resizeMode: 'contain',
-        marginRight: 2,
-    },
-
-    shotActionBarViewCount: {
-        fontSize: 8,
-        textAlign: 'center',
-        marginRight: 5,
-    },
-
-    shotActionBarLikeCount: {
-        fontSize: 8,
-        textAlign: 'center',
-        marginRight: 5,
-    },
-
-    shotActionBarCommentCount: {
-        fontSize: 8,
-        textAlign: 'center',
     },
 });
 
