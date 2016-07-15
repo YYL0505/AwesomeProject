@@ -13,6 +13,7 @@ import {
 
 import ShotDetail from './ShotDetail'
 import ShotCell from './ShotCell'
+import api from '../utils/api';
 
 var GiftedListView = require('react-native-gifted-listview');
 var GiftedSpinner = require('react-native-gifted-spinner');
@@ -24,14 +25,7 @@ class ShotsView extends Component {
 
     _onFetch(page = 1, callback, options) {
         setTimeout(() => {
-            fetch('https://api.dribbble.com/v1/shots?page=' + page + '&per_page=20', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer 06dde48a787703eabbb9b42f68ed8b24ab5be606eb03a837637cf47145ebded2',
-                }
-            }).then((response) => response.json())
+            api.fetchShots(page)
                 .then((responseData) => {
                     console.log('data got');
 

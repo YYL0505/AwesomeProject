@@ -39,6 +39,13 @@ var api = {
               headers: requestHeader
           }).then((response) => response.json());
     },
-};
-
+  
+    fetchShots(page) {
+          var url = 'https://api.dribbble.com/v1/shots?page=' + page + '&per_page=20';
+          return fetch(url, {
+              method: 'GET',
+              headers: requestHeader
+          }).then((response) => response.json());
+    },
+}
 export default api;
